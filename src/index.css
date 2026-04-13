@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-heading: "Syne", sans-serif;
+
+  --color-forest: #0A3D1F;
+  --color-pine: #1A6B35;
+  --color-emerald: #2ECC71;
+  --color-lime: #7FE88A;
+  --color-mist: #E8FFF0;
+  
+  --shadow-card: 0 4px 16px rgba(10, 61, 31, 0.08);
+  --shadow-cta: 0 8px 24px rgba(46, 204, 113, 0.25);
+  --shadow-mockup: 0 20px 50px rgba(10, 61, 31, 0.12);
+
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  --animate-scroll: scroll 40s linear infinite;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-forest font-sans antialiased;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border border-mist;
+  }
+  
+  .bg-mist-gradient {
+    background: linear-gradient(180deg, #FFFFFF 0%, #E8FFF0 100%);
+  }
+
+  .glow-orb {
+    @apply absolute rounded-full blur-[120px] pointer-events-none opacity-25;
+    background: radial-gradient(circle, #7FE88A 0%, transparent 70%);
+  }
+}

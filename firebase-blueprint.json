@@ -1,0 +1,120 @@
+{
+  "entities": {
+    "WaitlistEntry": {
+      "title": "Waitlist Entry",
+      "description": "A user who has joined the ArriveLink waitlist.",
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string",
+          "description": "The full name of the user."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The email address of the user."
+        },
+        "route": {
+          "type": "string",
+          "description": "The most traveled route by the user."
+        },
+        "travelFrequency": {
+          "type": "string",
+          "enum": [
+            "every-week",
+            "few-times-month",
+            "monthly",
+            "few-times-year"
+          ],
+          "description": "How often the user travels."
+        },
+        "phone": {
+          "type": "string",
+          "description": "The user's mobile number (optional)."
+        },
+        "submittedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the entry was submitted."
+        }
+      },
+      "required": ["fullName", "email", "route", "travelFrequency", "submittedAt"]
+    },
+    "BusRoute": {
+      "title": "Bus Route",
+      "description": "Real-time bus price and schedule information for a specific route and operator.",
+      "type": "object",
+      "properties": {
+        "operatorName": {
+          "type": "string",
+          "description": "Name of the transport operator."
+        },
+        "from": {
+          "type": "string",
+          "description": "Departure city."
+        },
+        "to": {
+          "type": "string",
+          "description": "Destination city."
+        },
+        "price": {
+          "type": "number",
+          "description": "Current fare in Naira."
+        },
+        "departureTime": {
+          "type": "string",
+          "description": "Scheduled departure time."
+        },
+        "fleetType": {
+          "type": "string",
+          "enum": ["Standard", "Air-Conditioned", "Executive"],
+          "description": "Type of bus/fleet."
+        },
+        "rating": {
+          "type": "number",
+          "description": "Operator rating."
+        },
+        "reviews": {
+          "type": "number",
+          "description": "Number of reviews."
+        },
+        "lastVerified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the price was last verified."
+        }
+      },
+      "required": ["operatorName", "from", "to", "price", "departureTime", "fleetType", "lastVerified"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "A record of a user's intent to book a seat.",
+      "type": "object",
+      "properties": {
+        "routeId": { "type": "string", "description": "Reference to the BusRoute." },
+        "userName": { "type": "string" },
+        "userPhone": { "type": "string" },
+        "seats": { "type": "array", "items": { "type": "string" }, "description": "Selected seat numbers." },
+        "totalPrice": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled"] },
+        "paymentStatus": { "type": "string", "enum": ["pending", "paid"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["routeId", "userName", "userPhone", "seats", "createdAt"]
+    }
+  },
+  "firestore": {
+    "waitlist": {
+      "schema": "WaitlistEntry",
+      "description": "Collection of waitlist signups."
+    },
+    "routes": {
+      "schema": "BusRoute",
+      "description": "Real-time bus routes and prices."
+    },
+    "bookings": {
+      "schema": "Booking",
+      "description": "User booking requests and seat reservations."
+    }
+  }
+}
